@@ -1,0 +1,2 @@
+This project is intended as my first forray into automation with anisble.
+Im going to be using this to both train my skills in using git to track my progress, but also making it easy for anyone who wants to run a nippow bootstraped Ergo node in the cloud.
