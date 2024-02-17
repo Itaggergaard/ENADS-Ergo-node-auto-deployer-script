@@ -1,5 +1,6 @@
 #!/bin/bash
 
+  #creates a dialog box to chose the node type
 var=$(dialog --title "Node selection" --menu "Select a node" 0 0 0 \
     1 "Light" \
     2 "Full" \
