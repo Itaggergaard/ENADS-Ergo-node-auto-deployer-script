@@ -4,7 +4,7 @@
 dialog --title "Dependencies" --yesno "Before we begin, we need to install the following dependencies: JRE, Curl , Dialog. Do you want to continue?" 0 0
 if [ $? -eq 0 ]; then
      #install the neccesary dependencies
-sudo apt install jre -y
+sudo apt install default-jre -y
 sudo apt install dialog -y
 sudo apt install curl -y
 else
