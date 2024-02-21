@@ -59,3 +59,5 @@ EOF
         echo "Invalid selection."
         ;;
 esac
+
+mkdir Ergo_Node
