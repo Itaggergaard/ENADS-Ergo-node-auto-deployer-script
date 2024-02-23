@@ -16,10 +16,11 @@ fi
 cd..
 cd.. 
 cd..
+cd..
     #specify root directory
 Dir=$(pwd)
     #dialogbox that starts the creation of the isntallation directory
-dialog --Title "Installation path" --msgbox "This will install the node in the following directory $dir/ergo_node"
+dialog --Title "Installation path" --msgbox "This will install the node in the following directory $dir/ergo_node" 0 0
 mkdir -p "$dir/ergo_node
 
 cd "$dir/ergo_node
@@ -71,3 +72,15 @@ EOF
         echo "Invalid selection."
         ;;
 esac
+
+dialog --title "Installation finished" --yesno "Do you wish to start your node now?" 0 0
+
+if [ $? -eq 0 ]; then
+
+    java -jar $jar_file --mainnet -c ergo.conf 
+
+    else 
+
+    exit
+
+    fi
