@@ -12,6 +12,18 @@ else
 exit
 
 fi
+    #Go to root directory
+cd..
+cd.. 
+cd..
+    #specify root directory
+Dir=$(pwd)
+    #dialogbox that starts the creation of the isntallation directory
+dialog --Title "Installation path" --msgbox "This will install the node in the following directory $dir/ergo_node"
+mkdir -p "$dir/ergo_node
+
+cd "$dir/ergo_node
+
   #creates a dialog box to chose the node type
 var=$(dialog --title "Node selection" --menu "Select a node" 0 0 0 \
     1 "Light" \
