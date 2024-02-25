@@ -1,10 +1,10 @@
-#!/bin/bash
+ #!/bin/bash
     
     #i make a dialog box asking if the user wants to install dependencies
 dialog --title "Dependencies" --yesno "Before we begin, we need to install the following dependencies: JRE, Curl , Dialog. Do you want to continue?" 0 0
 if [ $? -eq 0 ]; then
      #install the neccesary dependencies
-sudo apt install jre -y
+sudo apt install default-jre -y
 sudo apt install dialog -y
 sudo apt install curl -y
 else
@@ -13,17 +13,21 @@ exit
 
 fi
     #Go to root directory
-cd..
-cd.. 
-cd..
-cd..
-    #specify root directory
-Dir=$(pwd)
-    #dialogbox that starts the creation of the isntallation directory
-dialog --Title "Installation path" --msgbox "This will install the node in the following directory $dir/ergo_node" 0 0
-mkdir -p "$dir/ergo_node
+cd || exit
 
-cd "$dir/ergo_node
+    #dialogbox that starts the creation of the isntallation directory
+dialog --title "Installation path" --msgbox "This will install the node in the following directory /ergo_node" 0 0
+    
+    directory="ergo_node"
+
+if [ ! -d "$directory" ]; then
+    mkdir -v "$directory" > /dev/null
+    echo -e "${texto_verde}[+] Ergo directory successfully created ${reset}"
+else
+    echo -e "${texto_rojo}[!] The directory already exists, impossible to create another one with the same name ${reset}"
+fi
+
+cd /$home/$user/ergo_node
 
   #creates a dialog box to chose the node type
 var=$(dialog --title "Node selection" --menu "Select a node" 0 0 0 \
