@@ -1,5 +1,7 @@
 This script will installer an ergo node on your Raspberry Pi using a terminal installer.
 
+Download the file to your Pi and make it executable by using the command chomd +x installer.sh
+
 
 **Warning:**
 This script uses super user privileges.
