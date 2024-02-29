@@ -1,47 +1,63 @@
- #!/bin/bash
-    
-    #i make a dialog box asking if the user wants to install dependencies
-dialog --title "Dependencies" --yesno "Before we begin, we need to install the following dependencies: JRE, Curl , Dialog. Do you want to continue?" 0 0
-if [ $? -eq 0 ]; then
-     #install the neccesary dependencies
+#!/bin/bash
+
+# Exit immediately if a command exits with a non-zero status
+set -e
+
+user=$(whoami)
+
+
+
+# Dialog box asking if the user wants to install dependencies
+dialog --title "Dependencies" --yesno "Before we begin, we need to install the following dependencies: JRE, Curl, Dialog. Do you want to continue?" 0 0 || {
+    echo "User aborted. Exiting."
+    exit 1
+}
+
+# Install the necessary dependencies
 sudo apt install default-jre -y
 sudo apt install dialog -y
 sudo apt install curl -y
-else
-    echo "goodbye"
-exit
 
-fi
-    #Go to root directory
-cd || exit
+# Go to root directory
+cd "$HOME" || {
+    echo "Error: Unable to change directory to $HOME. Exiting."
+    exit 1
+}
 
-    #dialogbox that starts the creation of the isntallation directory
-dialog --title "Installation path" --msgbox "This will install the node in the following directory /ergo_node" 0 0
-    
-    directory="ergo_node"
+# Dialog box that starts the creation of the installation directory
+dialog --title "Installation path" --msgbox "This will install the node in the following directory $HOME/ergo_node" 0 0
 
+directory="ergo_node"
+
+# Check if directory already exists
 if [ ! -d "$directory" ]; then
-    mkdir -v "$directory" > /dev/null
-    echo -e "${texto_verde}[+] Ergo directory successfully created ${reset}"
+    mkdir -v "$directory" > /dev/null || {
+        echo "Error: Unable to create directory $directory. Exiting."
+        exit 1
+    }
+    echo "[+] Ergo directory successfully created"
 else
-    echo -e "${texto_rojo}[!] The directory already exists, impossible to create another one with the same name ${reset}"
+    echo "[!] The directory already exists, impossible to create another one with the same name"
 fi
 
-cd /$home/$user/ergo_node
+# Change directory to ergo_node
+cd "$HOME/ergo_node" || {
+    echo "Error: Unable to change directory to $HOME/ergo_node. Exiting."
+    exit 1
+}
 
-  #creates a dialog box to chose the node type
+# Creates a dialog box to choose the node type
 var=$(dialog --title "Node selection" --menu "Select a node" 0 0 0 \
     1 "Light" \
     2 "Full" \
     3 "None" \
     3>&1 1>&2 2>&3 3>&-)
 
-
 case $var in
     1)
         # Light option was selected, modify ergo.conf
-        dialog -title "Succes" --msgbox "light node"
-         cat <<EOF >ergo.conf
+        dialog --title "Success" --msgbox "Light node" 0 0
+        cat <<EOF >ergo.conf
 ergo {
   node {
     stateType = "digest"
@@ -60,7 +76,7 @@ scorex {
   }
 }
 EOF
-                ;;
+        ;;
     2)
         # Full option was selected
         echo "You selected Full."
@@ -77,14 +93,12 @@ EOF
         ;;
 esac
 
-dialog --title "Installation finished" --yesno "Do you wish to start your node now?" 0 0
+# Dialog box asking if the user wants to start the node
+dialog --title "Installation finished" --yesno "Do you wish to start your node now?" 0 0 || {
+    echo "User aborted. Exiting."
+    exit 0
+}
 
-if [ $? -eq 0 ]; then
+# Start the node
+java -jar "$jar_file" --mainnet -c ergo.conf
 
-    java -jar $jar_file --mainnet -c ergo.conf 
-
-    else 
-
-    exit
-
-    fi
