@@ -16,7 +16,7 @@ dialog --title "Dependencies" --yesno "Before we begin, we need to install the f
 # Install the necessary dependencies
 sudo apt install default-jre -y
 sudo apt install dialog -y
-sudo apt install curl -y
+sudo apt install wget -y
 
 # Go to root directory
 cd "$HOME" || {
@@ -77,7 +77,7 @@ scorex {
 }
 EOF
 
-curl -o $HOME/ergo_node/ergo-5.0.20.jar https://github.com/ergoplatform/ergo/releases/download/v5.0.20/ergo-5.0.20.jar
+wget -p $HOME/ergo_node/ergo-5.0.20.jar https://github.com/ergoplatform/ergo/releases/download/v5.0.20/ergo-5.0.20.jar
         ;;
     2)
         # Full option was selected
