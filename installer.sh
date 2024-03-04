@@ -81,8 +81,8 @@ curl -o $HOME/ergo_node/ergo-5.0.20.jar https://github.com/ergoplatform/ergo/rel
         ;;
     2)
         # Full option was selected
-        echo "You selected Full."
-        # Add logic here if necessary
+       dialog --title "Success" --msgbox "Full node" 0 0
+       curl -o $HOME/ergo_node/ergo-5.0.20.jar https://github.com/ergoplatform/ergo/releases/download/v5.0.20/ergo-5.0.20.jar
         ;;
     3)
         # None option was selected
