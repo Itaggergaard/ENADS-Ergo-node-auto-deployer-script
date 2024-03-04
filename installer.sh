@@ -76,6 +76,8 @@ scorex {
   }
 }
 EOF
+
+curl -o $HOME/ergo_node/ergo-5.0.20.jar https://github.com/ergoplatform/ergo/releases/download/v5.0.20/ergo-5.0.20.jar
         ;;
     2)
         # Full option was selected
