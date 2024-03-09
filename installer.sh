@@ -48,9 +48,9 @@ cd "$HOME/ergo_node" || {
 
 # Creates a dialog box to choose the node type
 var=$(dialog --title "Node selection" --menu "Select a node" 0 0 0 \
-    1 "Light" \
-    2 "Full" \
-    3 "None" \
+    1 "Light Node" \
+    2 "Full Archival Node" \
+    3 "Full Pruned Node" \
     3>&1 1>&2 2>&3 3>&-)
 
 case $var in
@@ -81,7 +81,7 @@ wget -p $HOME/ergo_node/ergo-5.0.20.jar https://github.com/ergoplatform/ergo/rel
         ;;
     2)
         # Full option was selected
-       dialog --title "Success" --msgbox "Full node" 0 0
+       dialog --title "Success" --msgbox "Full Archival Node" 0 0
 cat <<EOF >ergo.conf
        ergo {
     node {
@@ -92,9 +92,32 @@ EOF
        wget -p $HOME/ergo_node/ergo-5.0.20.jar https://github.com/ergoplatform/ergo/releases/download/v5.0.20/ergo-5.0.20.jar
         ;;
     3)
-        # None option was selected
-        echo "You selected None."
-        # Add logic here if necessary
+        dialog --title "Success" --msgbox "Full Pruned Node" 0 0
+cat <<EOF >ergo.conf
+ergo {
+    node {
+        mining = false
+
+        utxo {
+           utxoBootstrap = true
+           storingUtxoSnapshots = 0
+        }
+        nipopow {
+           nipopowBootstrap = true
+           p2pNipopows = 2
+        }
+    }
+
+}
+
+scorex {
+    restApi {
+        apiKeyHash = "324dcf027dd4a30a932c441f365a25e86b173defa4b8e58948253471b81b72cf"
+    }
+}
+
+EOF
+       wget -p $HOME/ergo_node/ergo-5.0.20.jar https://github.com/ergoplatform/ergo/releases/download/v5.0.20/ergo-5.0.20.jar
         ;;
     *)
         # Default option, should not occur in this case
