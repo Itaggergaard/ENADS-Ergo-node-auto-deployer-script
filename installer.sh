@@ -82,7 +82,14 @@ wget -p $HOME/ergo_node/ergo-5.0.20.jar https://github.com/ergoplatform/ergo/rel
     2)
         # Full option was selected
        dialog --title "Success" --msgbox "Full node" 0 0
-       curl -o $HOME/ergo_node/ergo-5.0.20.jar https://github.com/ergoplatform/ergo/releases/download/v5.0.20/ergo-5.0.20.jar
+cat <<EOF >ergo.conf
+       ergo {
+    node {
+        mining = false
+    }
+}
+EOF
+       wget -p $HOME/ergo_node/ergo-5.0.20.jar https://github.com/ergoplatform/ergo/releases/download/v5.0.20/ergo-5.0.20.jar
         ;;
     3)
         # None option was selected
@@ -102,5 +109,5 @@ dialog --title "Installation finished" --yesno "Do you wish to start your node n
 }
 
 # Start the node
-java -jar "$jar_file" --mainnet -c ergo.conf
+java -jar "ergo-5.0.20.jar" --mainnet -c ergo.conf
 
