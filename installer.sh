@@ -12,7 +12,7 @@ user=$(whoami)
 
 
 # Dialog box asking if the user wants to install dependencies
-dialog --title "Dependencies" --yesno "Before we begin, we need to install the following dependencies: JRE, Curl, Dialog. Do you want to continue?" 0 0 || {
+dialog --title "Dependencies" --yesno "Before we begin, we need to install the following dependencies: JRE, Wget, Dialog. Do you want to continue?" 0 0 || {
     echo "User aborted. Exiting."
     exit 1
 }
@@ -81,7 +81,7 @@ scorex {
 }
 EOF
 
-wget -p $HOME/ergo_node/ergo-5.0.20.jar https://github.com/ergoplatform/ergo/releases/download/v5.0.20/ergo-5.0.20.jar
+wget -P $HOME/ergo_node/ https://github.com/ergoplatform/ergo/releases/download/v5.0.20/ergo-5.0.20.jar
         ;;
     2)
         # Full option was selected
@@ -93,7 +93,8 @@ cat <<EOF >ergo.conf
     }
 }
 EOF
-       wget -p $HOME/ergo_node/ergo-5.0.20.jar https://github.com/ergoplatform/ergo/releases/download/v5.0.20/ergo-5.0.20.jar
+
+wget -P $HOME/ergo_node/ https://github.com/ergoplatform/ergo/releases/download/v5.0.20/ergo-5.0.20.jar
         ;;
     3)
         dialog --title "Success" --msgbox "Full Pruned Node" 0 0
@@ -121,7 +122,8 @@ scorex {
 }
 
 EOF
-       wget -P $HOME/ergo_node/ https://github.com/ergoplatform/ergo/releases/download/v5.0.20/ergo-5.0.20.jar
+
+wget -P $HOME/ergo_node/ https://github.com/ergoplatform/ergo/releases/download/v5.0.20/ergo-5.0.20.jar
         ;;
     *)
         # Default option, should not occur in this case
