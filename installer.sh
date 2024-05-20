@@ -3,6 +3,10 @@
 # Exit immediately if a command exits with a non-zero status
 set -e
 
+sudo apt install dialog -y
+sudo apt update -y
+sudo apt upgrade -y
+
 user=$(whoami)
 
 
@@ -117,7 +121,7 @@ scorex {
 }
 
 EOF
-       wget -p $HOME/ergo_node/ergo-5.0.20.jar https://github.com/ergoplatform/ergo/releases/download/v5.0.20/ergo-5.0.20.jar
+       wget -P $HOME/ergo_node/ https://github.com/ergoplatform/ergo/releases/download/v5.0.20/ergo-5.0.20.jar
         ;;
     *)
         # Default option, should not occur in this case
@@ -128,9 +132,10 @@ esac
 # Dialog box asking if the user wants to start the node
 dialog --title "Installation finished" --yesno "Do you wish to start your node now?" 0 0 || {
     echo "User aborted. Exiting."
-    exit 0
+    exit 0cd..
+    
 }
 
 # Start the node
-java -jar "ergo-5.0.20.jar" --mainnet -c ergo.conf
+java -jar $HOME/ergo_node/ergo-5.0.20.jar --mainnet -c ergo.conf
 
